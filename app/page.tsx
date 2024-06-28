@@ -1,30 +1,23 @@
-'use client'
-
 import React from "react";
-import { ReactSVG } from 'react-svg'
+import Layout from "@/src/components/Layout";
+import Form, {TextInput} from "@/src/components/Form"
+import * as yup from "yup";
 
-const Layout = ( { children }: { children: React.ReactNode} ) => {
-    return (
-        <main className="flex items-center justify-center h-screen m-0">
-            <div className="w-full h-full max-w-custom bg-primary-dark flex justify-center">
-                {children}
-            </div>
-        </main>
-    )
-}
-
-const Logo = () => {
-    return (
-        <div className="mt-40">
-            <ReactSVG src="my-finance-logo.svg" />
-        </div>
-    )
-}
+const SCHEMA = yup.object().shape({
+    email: yup.string().email('Invalid email').required('Email is required'),
+    password: yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+});
 
 export default function Home() {
+    const onSubmit = (data: any) => {
+        console.log(data);
+    };
     return (
         <Layout>
-            <Logo/>
+            <Form onSubmit={onSubmit} schema={SCHEMA}>
+                <TextInput path="email" label="Email" required />
+                <TextInput path="password" label="Password" required />
+            </Form>
         </Layout>
     );
 }
