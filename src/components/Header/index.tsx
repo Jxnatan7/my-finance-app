@@ -1,10 +1,13 @@
 import React from "react";
 import Logo from "@/src/components/Logo";
 
-const Header = () => {
+type HeaderProps = {
+    children: React.ReactNode;
+}
+const Header = ({ children, ...props }: HeaderProps) => {
     return (
-        <header className="flex justify-center items-end p-2 h-36">
-            <Logo/>
+        <header className="w-full">
+            {children}
         </header>
     )
 }
