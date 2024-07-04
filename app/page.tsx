@@ -21,8 +21,13 @@ export default function Home() {
                 <p className="self-start text-white font-bold text-3xl">Login</p>
             </div>
             <Form onSubmit={onSubmit} schema={SCHEMA}>
-                <TextInput path="email" label="Email" required />
-                <PassInput path="password" label="Password" required />
+                <TextInput path="email" label="Email" required/>
+                <div className="mt-3"/>
+                <PassInput path="password" label="Password" required/>
+                <div className="mt-14"/>
+                <button className="w-full max-w-96 flex justify-center items-center bg-primary-green text-white rounded font-bold h-12 shadow-sm shadow-secondary-green active:shadow-inner active:shadow-secondary-green">
+                    Access
+                </button>
             </Form>
         </Layout>
     );
