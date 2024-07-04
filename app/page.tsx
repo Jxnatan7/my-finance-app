@@ -2,7 +2,7 @@
 
 import React from "react";
 import Layout from "@/src/components/Layout";
-import Form, {TextInput} from "@/src/components/Form"
+import Form, {PassInput, TextInput} from "@/src/components/Form"
 import * as yup from "yup";
 
 const SCHEMA = yup.object().shape({
@@ -22,7 +22,7 @@ export default function Home() {
             </div>
             <Form onSubmit={onSubmit} schema={SCHEMA}>
                 <TextInput path="email" label="Email" required />
-                <TextInput path="password" label="Password" required />
+                <PassInput path="password" label="Password" required />
             </Form>
         </Layout>
     );
