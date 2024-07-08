@@ -17,8 +17,8 @@ const Label: React.FC<{ label?: string }> = ({ label }) => {
     return label ? <label className="text-gray-100 text-md mb-0.5">{label}</label> : null;
 };
 
-const ErrorMessage: React.FC<{ error?: boolean }> = ({ error }) => {
-    return error ? <span className="text-rose-600 text-sm mt-1">This field is required</span> : null;
+const ErrorMessage: React.FC<{ error?: boolean, path: string }> = ({ error, path }) => {
+    return error ? <span className="text-rose-600 text-sm mt-1">{path} is required</span> : null;
 };
 
 const PasswordToggle: React.FC<{ onClick: (e: React.MouseEvent<HTMLButtonElement>) => void }> = ({ onClick }) => {
@@ -55,7 +55,7 @@ export const TextInput: React.FC<TextInputProps> = ({ path, label, required = fa
                 />
                 {type === 'password' && <PasswordToggle onClick={togglePasswordVisibility} />}
             </div>
-            <ErrorMessage error={error} />
+            <ErrorMessage error={error} path={path}/>
         </div>
     );
 };
