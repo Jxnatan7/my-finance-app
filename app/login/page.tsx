@@ -5,6 +5,7 @@ import Layout from "@/src/components/Layout";
 import Form, { TextInput } from "@/src/components/Form"
 import * as yup from "yup";
 import {AuthContext} from "@/src/contexts/AuthContext";
+import {useRouter} from "next/navigation";
 
 const SCHEMA = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
@@ -13,8 +14,10 @@ const SCHEMA = yup.object().shape({
 
 export default function Login() {
     const { signIn } = useContext(AuthContext);
+    const router = useRouter();
     const onSubmit = async (form: {email: string, password: string}) => {
         await signIn(form);
+        router.push("/dashboard");
     };
     return (
         <Layout>

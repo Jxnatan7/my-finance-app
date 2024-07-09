@@ -9,13 +9,13 @@ export function setupAPIClient(ctx = undefined) {
         headers: {
             Authorization: `Bearer ${cookies['@my-finance.token']}`
         }
-    })
+    });
 
     api.interceptors.response.use(response => {
         return response;
     }, (error: AxiosError) => {
         return Promise.reject(error);
-    })
+    });
 
     return api;
 }

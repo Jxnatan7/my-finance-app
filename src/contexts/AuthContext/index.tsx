@@ -1,8 +1,7 @@
 'use client'
 
-import { createContext, ReactNode, useState, useEffect } from "react";
+import {createContext, ReactNode, useState} from "react";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
-import Router from "next/router";
 import {api} from "@/src/service/api/http";
 
 type AuthContextData = {
@@ -33,11 +32,13 @@ export const myFinanceToken = "@my-finance.token";
 
 export function signOut() {
     destroyCookie(null, myFinanceToken, { path: "/" })
-    Router.push("/login");
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const { myFinanceToken: token } = parseCookies();
+    const [token] = useState(() => {
+        const { "@my-finance.token": myFinanceToken } = parseCookies();
+        return myFinanceToken;
+    });
     const isAuthenticated = !!token;
 
     async function signIn({ email, password }: SignInProps) {
@@ -54,8 +55,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         });
 
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-        Router.push("/dashboard");
     }
 
     async function signUp({ name, email, password }: SignUpProps) {
@@ -64,13 +63,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
             email,
             password
         })
-
-        Router.push("/login");
     }
 
     async function logoutUser() {
         destroyCookie(null, myFinanceToken, { path: "/" });
-        Router.push("/login");
     }
 
     return (
