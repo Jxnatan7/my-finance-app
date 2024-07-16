@@ -1,8 +1,9 @@
 'use client'
 
-import {createContext, ReactNode, useState} from "react";
+import {createContext, ReactNode, useEffect, useState} from "react";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import {api} from "@/src/service/api/http";
+import {usePathname, useRouter} from "next/navigation";
 
 export type AuthContextData = {
     isAuthenticated: boolean;
@@ -34,12 +35,22 @@ export function signOut() {
     destroyCookie(null, myFinanceToken, { path: "/" })
 }
 
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider({ children }: AuthProviderProps) {4
+    const router = useRouter();
+    const pathname = usePathname();
+
     const [token] = useState(() => {
         const { "@my-finance.token": myFinanceToken } = parseCookies();
         return myFinanceToken;
     });
+
     const isAuthenticated = !!token;
+
+    useEffect(() => {
+        if (isAuthenticated && pathname === '/login' || isAuthenticated && pathname === '/register') {
+            router.push('/dashboard');
+        }
+    }, [isAuthenticated, router]);
 
     async function signIn({ email, password }: SignInProps) {
         const response = await api.post("/auth/login", {
