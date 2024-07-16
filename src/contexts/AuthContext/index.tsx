@@ -4,23 +4,23 @@ import {createContext, ReactNode, useState} from "react";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import {api} from "@/src/service/api/http";
 
-type AuthContextData = {
+export type AuthContextData = {
     isAuthenticated: boolean;
     signIn: (credentials: SignInProps) => Promise<void>;
     signUp: (credentials: SignUpProps) => Promise<void>;
     logoutUser: () => Promise<void>;
 }
 
-type AuthProviderProps = {
+export type AuthProviderProps = {
     children: ReactNode;
 }
 
-type SignInProps = {
+export type SignInProps = {
     email: string;
     password: string;
 }
 
-type SignUpProps = {
+export type SignUpProps = {
     name: string;
     email: string;
     password: string;

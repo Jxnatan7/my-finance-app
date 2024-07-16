@@ -1,5 +1,3 @@
-'use client'
-
 import React, {HTMLInputTypeAttribute, useState} from 'react';
 import {useForm, SubmitHandler, useFormContext, FormProvider} from 'react-hook-form';
 import {yupResolver} from "@hookform/resolvers/yup";
